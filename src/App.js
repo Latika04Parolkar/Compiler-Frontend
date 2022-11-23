@@ -54,17 +54,19 @@ function App() {
       code,
       input
     };
+    // await axios.post("https://compiler-backend.onrender.com/run", payload);
+    // "https://compiler-backend.onrender.com/status",
     try {
       setJobId("");
       setStatus("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("https://compiler-backend.onrender.com/run", payload);
+      const { data } = await axios.post("http://localhost:4000/run", payload);
       setJobId(data.jobId);
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "https://compiler-backend.onrender.com/status",
+          "http://localhost:4000/status",
           { params: { id: data.jobId } }
         );
         const { success, job, error } = dataRes;
